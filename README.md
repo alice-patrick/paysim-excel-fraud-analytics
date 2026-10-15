@@ -1,99 +1,103 @@
-# PaySim Fraud Analytics | Interactive Excel Dashboard
+# PaySim Fraud Analytics
+### Interactive Excel Dashboard · PivotTables · Slicers · Data Quality
 
-**Excel portfolio project | PivotTables · Slicers · SUMIF · SUMPRODUCT · Data Quality Checks**
+**An Excel data analytics portfolio project exploring 10,000 synthetic financial transactions with interactive fraud reporting, category-level analysis and reconciliation checks.**
 
-Interactive spreadsheet analysis of **10,000 synthetic PaySim transactions**, exploring how labelled fraud varies by transaction amount, payment type and simulation step. The workbook combines three native PivotTables, connected slicers, charts, reporting formulas and reconciliation checks.
+[**Download Excel workbook**](./PaySim_Fraud_Analytics_Working.xlsx) · [**View source CSV**](https://raw.githubusercontent.com/alice-patrick/decision-centric-fraud-framework/refs/heads/main/data/deployment/paysim_deployment_sample.csv) · [**Related SQL analytics**](https://github.com/alice-patrick/fraud-decision-analytics)
 
-> **Scope:** Exploratory analysis of synthetic records—not live banking data, a production fraud detection system or a predictive model. PaySim amounts are synthetic monetary units, not verified EUR amounts or realised financial losses.
+---
 
-## Project Preview
+## Dashboard overview
 
-### Fraud Analytics Dashboard
-![PaySim fraud analytics dashboard](./dashboard.png)
+![Redesigned PaySim fraud analytics dashboard](./dashboard.png)
 
-### Interactive PivotTable Filtering
-Type = TRANSFER (921 transactions; 33 labelled fraud cases).
+*Redesigned portfolio visualization of the full-sample results—not a screenshot of the actual Excel interface. The downloadable workbook contains the functional PivotTables, slicers and charts.*
 
-![Interactive PivotTable and slicer](./interactive-slicers.png)
+| Transactions | Labelled fraud | Fraud rate | Total amount |
+| :-- | :-- | :-- | :-- |
+| **10,000** | **68** | **0.68%** | **1,035,466,899.49** synthetic units |
 
-### Data Quality & Reconciliation
-Source validation and filtered PivotTable consistency checks.
+**Business question:** How do labelled fraud cases vary across payment types, transaction amount bands and simulation steps, and how can an analyst explore the patterns interactively?
 
-![Fraud analytics quality checks](./quality-checks.png)
+## Key findings — full sample
 
-## Business question
+| Dimension | Evidence | Interpretation |
+| --- | --- | --- |
+| Amount band | **10k–100k** contains **42 of 68** fraud labels (**61.8%**). | **42 / 2,841 = 1.48%** within-band fraud rate. |
+| Highest observed amount-band rate | **1m+: 8 / 123 = 6.50%** | Small denominator; the rate should not be generalised. |
+| Payment type | **TRANSFER: 33 / 921 (3.58%)**; **CASH_OUT: 35 / 1,321 (2.65%)** | These two categories account for all 68 labelled fraud cases in this sample. |
+| Simulation step | **Step 4: 10 / 565 (1.77%)** | Highest observed rate among the first seven simulation steps; not a real-world seasonal trend. |
 
-**How are labelled fraud cases distributed across transaction amounts, payment types and simulation steps, and how can an analyst explore those patterns interactively?**
+These observations describe the **full 10,000-row sample**. Filtered views can produce unstable percentages for very small groups.
 
-## At a glance — full sample
+## Interactive filtering
 
-| Metric | Value |
-| --- | ---: |
-| Transactions | 10,000 |
-| Labelled fraud cases | 68 |
-| Fraud rate | 0.68% |
-| Total transaction amount | 1,035,466,899.49 synthetic units |
-| Most labelled fraud cases by amount | 10k–100k: 42 / 68 (61.8%) |
-| Highest observed amount-band fraud rate | 1m+: 8 / 123 (6.50%) |
-| Payment types containing labelled fraud | TRANSFER (33) and CASH_OUT (35) |
+![Redesigned portfolio visual of PaySim interactive transaction filtering](./interactive-slicers.png)
 
-**Interpretation:** The 1m+ band contains only 123 transactions, so its high rate should not be generalised. Rates can be unstable for small filtered groups.
+*Redesigned portfolio visualization of **Type = TRANSFER**: 921 transactions, 33 fraud cases and a 3.58% fraud rate. The working slicers are in the workbook's `PIVOT - TYPES` sheet.*
 
-## Workbook
+The workbook provides **Type**, **Amount Band** and **Step** slicers connected to three native PivotTables. Category-aware dashboard formulas prevent filtered PivotTable row movements from shifting metrics into incorrect chart categories.
+
+The dashboard contains filter-responsive **Transactions**, **Fraud Cases** and **Fraud Rate** KPIs and three charts: fraud rate by amount band, fraud cases by payment type, and fraud rate across simulation steps. **Total Amount — Full Sample** deliberately remains static; business takeaways are explicitly full-sample observations.
+
+## Data quality & reconciliation
+
+![Redesigned portfolio visual of PaySim data quality and reconciliation](./quality-checks.png)
+
+*Redesigned portfolio visualization of source-level checks and filtered PivotTable reconciliation for **TRANSFER**. Actual formula-driven checks are in the workbook.*
+
+Validation covers source counts and fraud labels, blank reporting cells, non-positive transaction amounts, and agreement between filtered totals across all three PivotTables. **Agreement between PivotTables is not independent verification against every raw transaction.**
+
+## Excel methods
+
+| Area | Implementation |
+| --- | --- |
+| Data preparation | Derived **Amount Band**, **Transactions**, **Fraud Cases** and **Fraud Amount** reporting columns |
+| Analysis | Three editable native Excel PivotTables |
+| Interactivity | Three slicers and shared PivotTable report connections |
+| Dashboard calculations | `SUMIF`, `SUMPRODUCT`, `INDEX` / `MATCH` and `IFERROR` |
+| Visualization | KPI cards, Excel charts, percentage calculations and conditional formatting |
+| Quality controls | Reconciliation formulas and selected source-level checks |
+
+**Power Query was not used.** This is an Excel-based *descriptive analytics* project, not a fraud prediction system or production banking tool.
+
+## Workbook structure
 
 | Sheet | Purpose |
 | --- | --- |
-| START HERE | Context, baseline KPIs, findings and limitations |
-| PIVOT - AMOUNTS | Fraud reporting by amount band |
-| PIVOT - TYPES | Fraud reporting by payment type and three slicers |
-| PIVOT - STEPS | Fraud reporting by simulation step |
-| QUALITY CHECKS | Source-level checks and PivotTable reconciliation |
-| SOURCE TRANSACTIONS | Transaction-level reporting rows and derived columns |
-| DASHBOARD | Interactive KPIs, charts and data tables |
+| `START HERE` | Project context, baseline KPIs, findings and limitations |
+| `SOURCE TRANSACTIONS` | 10,000 individual reporting records |
+| `PIVOT - AMOUNTS` | Fraud metrics by amount band |
+| `PIVOT - TYPES` | Fraud metrics by payment type; slicer controls |
+| `PIVOT - STEPS` | Fraud metrics by simulation step |
+| `DASHBOARD` | Filter-responsive metrics, charts and reporting tables |
+| `QUALITY CHECKS` | Source-level controls and PivotTable reconciliation |
 
-### Interactive dashboard
+### Open and explore
 
-The **Type**, **Amount Band** and **Step** slicers connect to the three PivotTables. Dashboard tables use category-aware formulas so that filtered PivotTable rows do not have to remain in fixed positions.
+1. [Download the Excel workbook](./PaySim_Fraud_Analytics_Working.xlsx) and open it in a compatible desktop spreadsheet application.
+2. On `PIVOT - TYPES`, filter **Type**, **Amount Band** and/or **Step**.
+3. Visit `DASHBOARD` to review filtered results and `QUALITY CHECKS` for reconciliation.
+4. Clear the slicers to return to the baseline: **10,000 transactions, 68 fraud cases, 0.68% fraud rate**.
 
-The dashboard contains filtered **Transactions**, **Fraud Cases** and **Fraud Rate** KPIs, plus charts for fraud rate by amount band, fraud cases by payment type and fraud rate by simulation step. The **Total Amount — Full Sample** KPI deliberately remains unfiltered. Business takeaways are explicitly labelled as findings from the full sample.
+The slicers and selected scenarios were manually exercised in **WPS Office for Windows**. Behavior in other Excel-compatible applications may differ.
 
-### Excel techniques
+## Data provenance & limitations
 
-- Native PivotTables with shared slicer/report connections
-- Derived columns: Amount Band, Transactions, Fraud Cases and Fraud Amount
-- `SUMIF` and `SUMPRODUCT` for category-aware chart data
-- `INDEX` / `MATCH` to find PivotTable Grand Totals after filtering
-- `IFERROR`, percentages, conditional formatting and reconciliation checks
+- **Dataset:** first **10,000 rows** of the [published PaySim deployment sample](https://raw.githubusercontent.com/alice-patrick/decision-centric-fraud-framework/refs/heads/main/data/deployment/paysim_deployment_sample.csv), not the full PaySim dataset.
+- **Synthetic units:** PaySim amounts are not verified EUR amounts or confirmed financial losses.
+- **Descriptive scope:** observed labels and rates should not be interpreted as predictions or real-world prevalence estimates.
+- **Field scope:** account identifiers and account balance fields were excluded from this workbook; account-level balance validation is outside scope.
+- **Checks completed:** full-sample totals, selected amount/type/step filters, workbook reopening, matching PivotTable totals and a single-PivotTable refresh.
+- **Not fully verified:** `Refresh All` after raw-data modification, every multi-slicer combination or compatibility across all Microsoft Excel versions.
 
-**Quality-check distinction:** agreement across the three filtered PivotTables is not an independent verification of each filtered transaction against the raw data.
+## Related projects
 
-## Findings — full 10,000-row sample
+This spreadsheet portfolio project complements more technical work while demonstrating **Excel reporting, exploratory analysis, interactive filtering and quality controls**.
 
-1. **Amount:** The 10k–100k amount band contains **42 of the 68 fraud labels (61.8%)**; 42 out of 2,841 transactions in that band are labelled fraud (**1.48%**).
-2. **Type:** TRANSFER has **33 fraud cases out of 921 (3.58%)** and CASH_OUT has **35 out of 1,321 (2.65%)**. No other payment type has labelled fraud cases in this sample.
-3. **Simulation step:** This extract covers PaySim steps 1–7. These step-level comparisons do not establish real-world seasonality or causal trends.
+- [Fraud Decision Analytics — SQL and analytics](https://github.com/alice-patrick/fraud-decision-analytics)
+- [Decision-Centric Fraud Detection Framework — MSc AI prototype](https://github.com/alice-patrick/decision-centric-fraud-framework)
 
-## How to use
+---
 
-1. Download [`PaySim_Fraud_Analytics_Working.xlsx`](./PaySim_Fraud_Analytics_Working.xlsx).
-2. Open the workbook in a compatible desktop spreadsheet application. The interactive slicers were exercised in **WPS Office for Windows**.
-3. In `PIVOT - TYPES`, change the **Type**, **Step** and **Amount Band** slicers.
-4. Open `DASHBOARD` to inspect the filtered KPIs and charts.
-5. Review `QUALITY CHECKS`, then clear all slicers to return to the full sample.
-
-### Validation scope
-
-Manual checks in WPS Office covered the baseline view, 10k–100k band, TRANSFER-only and Step 4 filters, matched PivotTable totals, reopening the saved workbook, and a single-PivotTable refresh.
-
-**Not fully tested:** changing the raw source followed by a complete Refresh All, all possible slicer combinations, and full cross-version Microsoft Excel compatibility. **Power Query was not used.**
-
-## Data provenance and limitations
-
-- The workbook uses the **first 10,000 rows** of the [published PaySim deployment sample CSV](https://raw.githubusercontent.com/alice-patrick/decision-centric-fraud-framework/refs/heads/main/data/deployment/paysim_deployment_sample.csv), not the entire PaySim dataset.
-- Synthetic fraud labels and amounts are not evidence of actual financial loss or real-world fraud prevalence.
-- Account identifiers and balance fields were excluded from this reporting workbook; account-level checks are outside its scope.
-- Dashboard insights are descriptive, not predictive.
-
-## Related work
-
-This Excel-focused portfolio project complements the [Fraud Decision Analytics repository](https://github.com/alice-patrick/fraud-decision-analytics) and the broader decision-centric MSc project. Its purpose is to demonstrate practical **Excel reporting, exploratory analysis, interactive filtering and data-quality reasoning**.
+*Excel portfolio case study · Synthetic PaySim sample · Descriptive and exploratory analysis*
