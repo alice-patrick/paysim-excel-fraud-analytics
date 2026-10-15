@@ -19,6 +19,35 @@
 
 **Business question:** How do labelled fraud cases vary across payment types, transaction amount bands and simulation steps, and how can an analyst explore the patterns interactively?
 
+## Dataset & Project Objective
+
+### Data Source
+
+This project uses the **PaySim Synthetic Financial Dataset**, publicly available on [Kaggle](https://www.kaggle.com/datasets/ealaxi/paysim1/data).
+
+PaySim simulates mobile money transactions and includes labelled fraudulent activity, making it suitable for exploring transaction patterns without exposing sensitive financial records.
+
+The workbook analyses the first **10,000 transactions** from the PaySim deployment sample used across the related projects.
+
+### Project Objective
+
+The objective is to transform transaction-level data into an **interactive Excel reporting solution** that helps identify and communicate patterns in labelled fraud.
+
+Specifically, the analysis aims to:
+
+- Examine fraud frequency and rates across payment types and transaction amounts.
+- Explore how transaction and fraud distributions change across simulation steps.
+- Enable interactive investigation using PivotTables, connected slicers and dashboard charts.
+- Validate reporting consistency through data-quality and reconciliation checks.
+
+### Why Excel?
+
+Excel was selected to demonstrate practical, business-oriented analytics skills: data preparation, exploratory analysis, interactive reporting and validation.
+
+The focus is on **understanding and communicating patterns**, rather than predicting fraudulent transactions or optimising investigation decisions.
+
+All results are descriptive and based on synthetic data.
+
 ## Key findings — full sample
 
 | Dimension | Evidence | Interpretation |
