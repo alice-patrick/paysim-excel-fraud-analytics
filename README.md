@@ -6,6 +6,21 @@ Interactive spreadsheet analysis of **10,000 synthetic PaySim transactions**, ex
 
 > **Scope:** Exploratory analysis of synthetic records—not live banking data, a production fraud detection system or a predictive model. PaySim amounts are synthetic monetary units, not verified EUR amounts or realised financial losses.
 
+## Project Preview
+
+### Fraud Analytics Dashboard
+![PaySim fraud analytics dashboard](./dashboard.png)
+
+### Interactive PivotTable Filtering
+Type = TRANSFER (921 transactions; 33 labelled fraud cases).
+
+![Interactive PivotTable and slicer](./interactive-slicers.png)
+
+### Data Quality & Reconciliation
+Source validation and filtered PivotTable consistency checks.
+
+![Fraud analytics quality checks](./quality-checks.png)
+
 ## Business question
 
 **How are labelled fraud cases distributed across transaction amounts, payment types and simulation steps, and how can an analyst explore those patterns interactively?**
